@@ -36,37 +36,3 @@
     transform: rotate(360deg);
   }
 }
-.outer-container{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-  justify-content: center;
-  background-color: #f5edef;
-}
-
-.btn-container{
-    width: 320px;
-    display: inline-block;
-    margin-left: auto;
-}
-#signin{
-  margin-right: 5px;
-  background: #F9CFE1;
-  color: #512013
-}
-
-#signup{
-  background: #F9CFE1;
-  color: #512013;
-  margin-left: 5px;
-}
-#btn-center{
-  background: #F9CFE1;
-  color: #512013;
-  margin-left: 5px;
-}
-.formContainer{
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
-}
