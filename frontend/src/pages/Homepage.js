@@ -1,11 +1,11 @@
-import './HomePage.css';
+import './homePage.css';
 import { Routes, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
-import Resume from '../components/Resume';
-import PdfComponent from '../components/PdfComponent';
+import Editor from '../components/Editor';
+import Preview from './Preview';
 import { Provider } from 'react-redux';
 import { store } from '../state/store';
 
@@ -15,8 +15,8 @@ function HomePage() {
         <Container fluid className="bg-white p-0">
           {/* <Navigation></Navigation> */}
           <Routes>
-            <Route exact path="/" element={<Resume />}></Route>
-            <Route exact path="/preview" element={<PdfComponent />}></Route>
+            <Route path="/" element={<Editor />}></Route>
+            <Route path="/preview" element={<Preview />}></Route>
           </Routes>
           <Footer></Footer>
         </Container>

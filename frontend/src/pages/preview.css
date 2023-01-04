@@ -1,0 +1,56 @@
+.template-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    background-color: #f5edef;
+}
+.header-container {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #f5edef;
+  }
+  .btn-container {
+    width: 320px;
+    display: inline-block;
+    margin-left: auto;
+    height: 40px;
+  }
+  
+  #signin {
+    margin-right: 5px;
+    background: #F9CFE1;
+    color: #512013;
+    /* height: 35px; */
+  }
+
+
+  /* For Template 2 */
+  html,
+  body {
+  font-family: "Poppins", sans-serif;
+  font-size: 1.2em;
+  }
+  .fs-small {
+      font-size: 1em;
+  }
+  
+  .font-bold{
+      font-size: 1.3em;
+      font-weight: 600;
+  }
+  .float-left {
+      float:left;
+  }
+  .technology {
+      padding: 2px 8px;
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      background-color: #fff;
+  }
+  .ls-2 {
+      letter-spacing: 2px;
+  }
