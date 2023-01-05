@@ -140,3 +140,25 @@ body {
   justify-content: center;
   background-color: #f5edef;
 }
+
+.btn-container {
+  width: 320px;
+  display: inline-block;
+  margin-left: auto;
+  height: 42px;
+}
+
+#logout-btn{
+  margin-right: 5px;
+  background: #F9CFE1;
+  color: #512013;
+  height: 35px;
+}
+
+
+.Card-container{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+}

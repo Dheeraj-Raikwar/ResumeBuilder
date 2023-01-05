@@ -3,8 +3,32 @@
     flex-wrap: wrap;
     flex-direction: row;
     justify-content: center;
-    background-color: #f5edef;
+    padding: 5px;
 }
+.template1{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    margin-left: 1px;
+}
+.template2{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    margin-right: 1px;
+    width: 50%;
+    height: 200px;
+
+}
+.content-1{
+   
+}
+.content-2{
+   
+}
+
 .header-container {
     display: flex;
     flex-wrap: wrap;
@@ -12,18 +36,19 @@
     justify-content: center;
     background-color: #f5edef;
   }
+
   .btn-container {
     width: 320px;
     display: inline-block;
     margin-left: auto;
-    height: 40px;
+    height: 42px;
   }
-  
-  #signin {
+
+  #logout-btn{
     margin-right: 5px;
     background: #F9CFE1;
     color: #512013;
-    /* height: 35px; */
+    height: 35px;
   }
 
 

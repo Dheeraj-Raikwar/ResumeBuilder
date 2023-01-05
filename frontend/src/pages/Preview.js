@@ -25,7 +25,7 @@ function Preview() {
 
   const navigate = useNavigate();
 
-
+  const resumeType = localStorage.getItem('resumeType');
   function logout() {
     navigate('/');
   }
@@ -176,60 +176,68 @@ function Preview() {
       {/* Header */}
       <div className="header-container">
         <div className="btn-container">
-          <Button id="signin" variant="outlined" onClick={logout}>
+          <Button id="logout-btn" variant="outlined" onClick={logout}>
             Log Out{" "}
           </Button>
         </div>
       </div>
 
+      {/* <div className="container d-flex justify-content-center p-4"> */}
+
       <div className='template-container'>
-        <div className="container d-flex justify-content-center p-4">
-          {/* Template 1 */}
-          <div>
-            <div className="row pdf bg-light" id="divToPrint" size="A4">
 
-              <div className="d-flex align-items-center justify-content-center col-md-5 bg-1 p-0 py-2">
-                <div>
-                  <div className="d-flex justify-content-center">
-                    <img src={file} className="pdf-profile-image" alt="..."></img>
-                  </div>
 
-                  <Stack className="text-center">
-                    <span className="font-bold m-0 firstname">{name[0]}</span>
-                    <span className="font-thin m-0">{name[1]}</span>
-                    <p>{profile.tagline}</p>
-                    <p className="m-0"><HiOfficeBuilding size={20} /> {profile.position}</p>
-                    <p><HiLocationMarker size={20} /> {profile.location}</p>
 
-                  </Stack>
-                  <br></br>
-                  <GetLinks />
-
-                  <br></br>
-                  <Stack className="p-3">
-                    <h4 className="title">Skills</h4>
-                    <div className="d-flex flex-wrap">
-                      {
-                        skills.map((items, id) => {
-                          return (
-                            <p className="technology rounded" key={id}>{items}</p>
-                          )
-                        })
-                      }
-                    </div>
-                  </Stack>
+        {/* Template 1 */}
+        <div>
+          <div className="row pdf bg-light" id="divToPrint" size="A4">
+            <div className="d-flex align-items-center justify-content-center col-md-5 bg-1 p-0 py-2">
+              <div>
+                <div className="d-flex justify-content-center">
+                  <img src={file} className="pdf-profile-image" alt="..."></img>
                 </div>
 
-              </div>
-              <div className="d-flex align-items-center col-md-7 p-0 py-4">
-                <div>
-                  <div className="px-4 py-1">
-                    <h4 className="title">About Me</h4>
-                    <p className="text-break">
-                      {about}
-                    </p>
-                    <hr></hr>
+                <Stack className="text-center">
+                  <span className="font-bold m-0 firstname">{name[0]}</span>
+                  <span className="font-thin m-0">{name[1]}</span>
+                  <p>{profile.tagline}</p>
+                  <p className="m-0"><HiOfficeBuilding size={20} /> {profile.position}</p>
+                  <p><HiLocationMarker size={20} /> {profile.location}</p>
+
+                </Stack>
+                <br></br>
+                <GetLinks />
+
+                <br></br>
+                <Stack className="p-3">
+                  <h4 className="title">Skills</h4>
+                  <div className="d-flex flex-wrap">
+                    {
+                      skills.map((items, id) => {
+                        return (
+                          <p className="technology rounded" key={id}>{items}</p>
+                        )
+                      })
+                    }
                   </div>
+                </Stack>
+              </div>
+
+            </div>
+            <div className="d-flex align-items-center col-md-7 p-0 py-4">
+              <div>
+                <div className="px-4 py-1">
+                  <h4 className="title">About Me</h4>
+                  <p className="text-break">
+                    {about}
+                  </p>
+                  <hr></hr>
+                </div>
+
+                {/* Checkpoint >>>>>>>>>>>>>>>>>>>>> */}
+
+                {resumeType === 'exp' ?
+
 
                   <div className="px-4">
                     <h4 className="title">Experience</h4>
@@ -252,117 +260,136 @@ function Preview() {
                     <hr></hr>
                   </div>
 
-                  <div className="px-4">
-                    <h4 className="title">Education</h4>
-                    {
-                      educationList.map((item, id) => {
-                        return (
-                          <div className="d-flex justify-content-start py-1" key={id}>
-                            <GiGraduateCap size={40} />
-                            <div className="px-3">
-                              <h4>{item.institute}</h4>
-                              <p className="m-0">{item.degree} • {item.fieldOfStudy}</p>
-                              <p>{item.startYear} - {item.endYear} • Grade: {item.grade}</p>
-                            </div>
+                  : null
+                }
+
+                <div className="px-4">
+                  <h4 className="title">Education</h4>
+                  {
+                    educationList.map((item, id) => {
+                      return (
+                        <div className="d-flex justify-content-start py-1" key={id}>
+                          <GiGraduateCap size={40} />
+                          <div className="px-3">
+                            <h4>{item.institute}</h4>
+                            <p className="m-0">{item.degree} • {item.fieldOfStudy}</p>
+                            <p>{item.startYear} - {item.endYear} • Grade: {item.grade}</p>
                           </div>
-                        )
-                      })
-                    }
+                        </div>
+                      )
+                    })
+                  }
 
 
-                  </div>
                 </div>
-
-              </div>
-              <div className="d-grid col-2 mx-auto mt-4">
-                <button className="nav-link align-middle bg-dark text-white p-2 rounded" onClick={printDocument}>Download Template 1</button>
               </div>
 
             </div>
+
           </div>
 
-          {/*Template 2 */}
-          <div>
-            <html lang="en">
-              <head>
-                <meta charset="utf-8" />
-                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
+          <div className="d-grid col-2 mx-auto mt-4">
+            <button className="nav-link align-middle bg-dark text-white p-2 rounded" onClick={printDocument}>Download Template 1</button>
+          </div>
 
-                <title>Resume</title>
-              </head>
-              <body>
-                <div>
+        </div>
 
-                  <div class="px-4">
-                    <h2 class="mx-4 font-bold mt-4">${name[0] + " " + name[1]} </h2>
-                    <p class="mx-4 fs-small mb-2 text-secondary">${profile.tagline}</p>
-                  </div>
+        {/*Template 2 */}
+        <div>
+          <div className="row pdf bg-light" id="divToPrint-2" size="A4">
+            <div className='header-container'>
+              <div>
+                <html lang="en">
+                  <head>
+                    <meta charset="utf-8" />
+                    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
 
-                  <hr></hr>
+                    <title>Resume</title>
+                  </head>
+                  <body>
+                    <div>
 
-                  <div class="px-4">
-
-                    <div class="col-5 float-left bg-light p-4">
-
-                      <h3 class="mb-3 ls-2">• INFO</h3>
-
-                      <h4 class="m-0 text-secondary">Position:</h4>
-                      <p class="m-0 mb-2">${profile.position}</p>
-                      <h4 class="m-0 text-secondary">Location:</h4>
-                      <p class="m-0 mb-2">${profile.location}</p>
-                      <h4 class="m-0 text-secondary">Contact:</h4>
-                      <p class="m-0 mb-2">${profile.contact}</p>
-                      <h4 class="m-0 text-secondary">E-Mail:</h4>
-                      <p class="m-0">${profile.email}</p>
-
+                      <div class="px-4">
+                        <h2 class="mx-4 font-bold mt-4">${name[0] + " " + name[1]} </h2>
+                        <p class="mx-4 fs-small mb-2 text-secondary">${profile.tagline}</p>
+                      </div>
                       <hr></hr>
+                      <div class="px-4">
 
-                      <h3 class="mb-3 ls-2">• LINKS</h3>
+                        <div class="col-5 float-left bg-light p-4">
 
-                      <h4 class="m-0 text-secondary">LinkedIn:</h4>
-                      <p class="m-0 mb-2">${profile.linkedin}</p>
-                      <h4 class="m-0 text-secondary">GitHub:</h4>
-                      <p class="m-0 mb-2">${profile.github}</p>
-                      <h4 class="m-0 text-secondary">Website:</h4>
-                      <p class="m-0">${profile.website}</p>
+                          <h3 class="mb-3 ls-2">• INFO</h3>
 
-                      <hr></hr>
+                          <h4 class="m-0 text-secondary">Position:</h4>
+                          <p class="m-0 mb-2">${profile.position}</p>
+                          <h4 class="m-0 text-secondary">Location:</h4>
+                          <p class="m-0 mb-2">${profile.location}</p>
+                          <h4 class="m-0 text-secondary">Contact:</h4>
+                          <p class="m-0 mb-2">${profile.contact}</p>
+                          <h4 class="m-0 text-secondary">E-Mail:</h4>
+                          <p class="m-0">${profile.email}</p>
 
-                      <h3 class="mb-3 ls-2">• SKILLS</h3>
+                          <hr></hr>
 
-                      <div class="d-flex flex-wrap">
-                        ${mySkills}
+                          <h3 class="mb-3 ls-2">• LINKS</h3>
+
+                          <h4 class="m-0 text-secondary">LinkedIn:</h4>
+                          <p class="m-0 mb-2">${profile.linkedin}</p>
+                          <h4 class="m-0 text-secondary">GitHub:</h4>
+                          <p class="m-0 mb-2">${profile.github}</p>
+                          <h4 class="m-0 text-secondary">Website:</h4>
+                          <p class="m-0">${profile.website}</p>
+
+                          <hr></hr>
+
+                          <h3 class="mb-3 ls-2">• SKILLS</h3>
+
+                          <div class="d-flex flex-wrap">
+                            ${mySkills}
+                          </div>
+
+                        </div>
+
+                        <div class="col-7 float-left p-4">
+
+                          <h3 class="mb-3 ls-2">• ABOUT</h3>
+
+                          <p class="m-0">${about}</p>
+
+                          <hr></hr>
+
+                          {/* Checkpoint >>>>>>>>>>>>>>>>>>>>> */}
+
+                          {resumeType === 'exp' ? <>
+
+                            <h3 class="mb-3 ls-2">• WORK EXPERIENCE</h3>
+
+                            ${myExperience}
+
+                            <hr></hr></>
+                            : null
+                          }
+
+                          <h3 class="mb-3 ls-2">• EDUCATION</h3>
+
+                          ${myEducation}
+
+                        </div>
                       </div>
 
                     </div>
+                  </body>
+                </html>
 
-                    <div class="col-7 float-left p-4">
-
-                      <h3 class="mb-3 ls-2">• ABOUT</h3>
-
-                      <p class="m-0">${about}</p>
-
-                      <hr></hr>
-
-                      <h3 class="mb-3 ls-2">• WORK EXPERIENCE</h3>
-
-                      ${myExperience}
-
-                      <hr></hr>
-
-                      <h3 class="mb-3 ls-2">• EDUCATION</h3>
-
-                      ${myEducation}
-
-                    </div>
-                  </div>
-
-                </div>
-              </body>
-            </html>
+              </div>
+            </div>
+          </div>
+          <div className="d-grid col-2 mx-auto mt-4">
+            <button className="nav-link align-middle bg-dark text-white p-2 rounded" onClick={printDocument - 2}>Download Template 2</button>
           </div>
         </div>
       </div>
+      {/* </div> */}
 
     </Fragment>
   )

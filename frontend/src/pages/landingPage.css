@@ -15,21 +15,21 @@
   width: 320px;
   display: inline-block;
   margin-left: auto;
-  height: 40px;
+  height: 42px;
 }
 
 #signin {
   margin-right: 5px;
   background: #F9CFE1;
   color: #512013;
-  /* height: 35px; */
+  height: 35px;
 }
 
 #signup {
   background: #F9CFE1;
   color: #512013;
   margin-left: 5px;
-  /* height: 35px; */
+  height: 35px;
 }
 
 #btn-center {
