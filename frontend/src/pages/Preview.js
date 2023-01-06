@@ -109,6 +109,20 @@ function Preview() {
       ;
   };
 
+  const printDocument2 = () => {
+    const input = document.getElementById('divToPrint-2');
+    console.log(data.skills);
+    html2canvas(input)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'pt', 'a4', false);
+        pdf.addImage(imgData, 'PNG', 0, 0, 600, 0, undefined, false);
+        // pdf.output('dataurlnewwindow');
+        pdf.save("download.pdf");
+      })
+      ;
+  };
+
   const GetIcon = (icon) => {
     switch (icon.icon) {
       case "HiOutlineMail":
@@ -385,7 +399,7 @@ function Preview() {
             </div>
           </div>
           <div className="d-grid col-2 mx-auto mt-4">
-            <button className="nav-link align-middle bg-dark text-white p-2 rounded" onClick={printDocument - 2}>Download Template 2</button>
+            <button className="nav-link align-middle bg-dark text-white p-2 rounded" onClick={printDocument2}>Download Template 2</button>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react'
+import React, { Fragment, useEffect, useState } from 'react'
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { MdAddCircleOutline, MdEdit, MdClose } from 'react-icons/md';
@@ -9,6 +9,8 @@ import Form from 'react-bootstrap/Form';
 import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../state/index';
+import Toast from 'react-bootstrap/Toast';
+import ToastContainer from 'react-bootstrap/ToastContainer';
 
 function Profile() {
 
@@ -18,6 +20,27 @@ function Profile() {
     const { manageProfile, manageFile } = bindActionCreators(actionCreators, dispatch);
 
     const [isEdit, setIsEdit] = useState(false);
+
+
+    const [show, setShow] = useState(false);
+    const [alert, setAlert] = useState(false);
+    const [alertType, setAlertType] = useState({
+        name: false,
+        location: false,
+        position: false,
+        tagline: false,
+        email: false,
+        contact: false,
+        github: false,
+        linkedin: false,
+        website: false
+    });
+
+    const [profileName, setProfileName] = useState("");
+    const [profileURL, setProfileURL] = useState("");
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
 
     // const [file, setFile] = useState("./images/profile.jpg");
     function handleFile(e) {
@@ -35,10 +58,22 @@ function Profile() {
     // })
 
     const handleProfile = (e) => {
+
         manageProfile({
             ...profile,
             [e.target.name]: e.target.value
         })
+        if (e.target.value === "" || e.target.value === null) {
+            setAlertType({ ...alertType, [e.target.name]: true })
+            // errors.forEach((error) => {
+            //     console.log(error +" "+ alertType[error])})
+            handleAlertShow();
+        }
+        else {
+            setAlertType({ ...alertType, name: false })
+
+            handleAlertHide();
+        }
         // setProfile((old)=>{
         //     return {
         //         ...old,
@@ -47,13 +82,11 @@ function Profile() {
         // })
     }
 
-    const [show, setShow] = useState(false);
-    const [alert, setAlert] = useState(false);
-    const [profileName, setProfileName] = useState("");
-    const [profileURL, setProfileURL] = useState("");
+    useEffect(() => {
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+    }, [alert]);
+
+
     const handleAlertHide = () => {
         setProfileName("");
         setProfileURL("");
@@ -70,7 +103,6 @@ function Profile() {
 
         <Fragment>
             <Row className="justify-content-center mt-2">
-
 
                 <Col md={8} sm={12} className="d-flex justify-content-between align-items-center bg-light rounded">
                     <h5 className="m-0">Profile</h5>
@@ -188,13 +220,33 @@ function Profile() {
                         </button>
                     </Modal.Footer>
                 </Modal>
-                <Modal show={alert} onHide={handleAlertHide}>
+                {/* <Modal show={alert} onHide={handleAlertHide}>
                     <Modal.Header>
-                        <Modal.Title>{profileName}</Modal.Title>
+                        <Modal.Title>Error</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>{profileURL}</Modal.Body>
-                </Modal>
+                    <Modal.Body>{alertType.name ? "Name is required":null}</Modal.Body>
+
+                </Modal> */}
+
             </Row>
+
+            <ToastContainer>{
+                Object.keys(alertType).map((key) => {
+                    return (<>
+                        {alertType[key] ? <Toast show={alert} onClose={handleAlertHide}>
+                            <Toast.Header>
+                                <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
+                                <strong className="me-auto">Bootstrap</strong>
+                                <small className="text-muted">just now</small>
+                            </Toast.Header>
+                            <Toast.Body>{key} is required </Toast.Body>
+                        </Toast> : null}
+                    </>
+                    )
+                })}
+
+            </ToastContainer>
+
         </Fragment>
 
     )
