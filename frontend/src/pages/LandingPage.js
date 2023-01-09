@@ -8,10 +8,12 @@ import { Formik, Form, Field } from "formik";
 import { useNavigate } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
-
+import Toast from "react-bootstrap/Toast";
+import ToastContainer from "react-bootstrap/ToastContainer";
 
 function LandingPage() {
   const [signInopen, setsignInopen] = useState(false);
+
   const signInhandleOpen = () => setsignInopen(true);
   const signInhandleClose = () => setsignInopen(false);
 
@@ -19,9 +21,19 @@ function LandingPage() {
   const signUphandleOpen = () => setsignupopen(true);
   const signUphandleClose = () => setsignupopen(false);
 
+  const [successHandle, setsuccessHandle] = useState(false);
+  const successHandleOpen = () => setsuccessHandle()
+  const successHandleClose = () => setsuccessHandle(false)
+
+  const [response, setResponse] = useState();
+
   const navigate = useNavigate();
 
+  const [userEmail, setEmail] = useState();
+  const [userPassword, setPassword] = useState();
+
   var emailError, passwordError;
+
   function validateEmail(value) {
 
     if (!value) {
@@ -31,6 +43,7 @@ function LandingPage() {
     }
     else {
       emailError = " "
+      setEmail(value);
     }
 
     return emailError;
@@ -39,186 +52,269 @@ function LandingPage() {
   function validatePassword(value) {
     var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
     if (value.length < 8) {
-      passwordError = "Password should be min length of 8";
+      passwordError = "Password should be min length of 8, max: 15 characters";
     }
     else if (!value.match(regex)) {
       passwordError = "password should contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character";
     }
     else {
       passwordError = " "
+      setPassword(value);
     }
 
     return passwordError;
   }
 
-  function signIn() {
-    if (emailError === " " && passwordError === " ")
-      navigate('/home');
+  function signIn(e) {
+    fetch("http://localhost:3001/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: userEmail,
+        password: userPassword,
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Response: ", data);
+        if(data.message !=="False" && data.message !=="True"){
+        setResponse(data.message);
+        successHandleOpen();
+        e.preventDefault();
+        }
+        else if (data.message==="True"){
+          setResponse("Login successful");
+          successHandleOpen();
+          e.preventDefault();
+          localStorage.setItem('userEmail', userEmail)
+          navigate('./home')
+        }
+        else if(data.message==="False"){
+          setResponse("Email or Password mismatch");
+          successHandleOpen();
+          e.preventDefault();
+        }
+        else{
+          setResponse("Something went wrong");
+          successHandleOpen();
+          e.preventDefault();
+        }
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    e.preventDefault();
+  }
+  function signup(e) {
+    fetch("http://localhost:3001/signup", {
+      method: "POST",
+      body: JSON.stringify({
+        email: userEmail,
+        password: userPassword
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Response: ", data);
+        setResponse(data);
+        successHandleOpen();
+        e.preventDefault();
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+    e.preventDefault();
   }
 
   return (
-    <header>
-      <div className="header-container">
-        <div className="btn-container">
-          <Button id="signin" variant="outlined" onClick={signInhandleOpen}>
-            Sign in{" "}
-          </Button>
-          <Button id="signup" variant="outlined" onClick={signUphandleOpen}>
-            Sign up
-          </Button>
-          {signInopen ? (
+    <>
+      <header>
+        <div className="header-container">
+          <div className="btn-container">
+            <Button id="signin" variant="outlined" onClick={signInhandleOpen}>
+              Sign in{" "}
+            </Button>
+            <Button id="signup" variant="outlined" onClick={signUphandleOpen}>
+              Sign up
+            </Button>
+            {signInopen ? (
 
-            <Modal
-              show={signInopen}
-              onHide={signInhandleClose}
-              backdrop="static"
-              keyboard={false}
-            >
-              <Modal.Header closeButton>
-                <Modal.Title>Resume Builder</Modal.Title>
-              </Modal.Header>
-              <Modal.Body>
-                <Typography
-                  id="transition-modal-title"
-                  variant="h6"
-                  component="h2"
-                >
-                  Sign In
-                </Typography>
-                <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                  Please fill all details to sign in.
-                </Typography>
-                <div>
-                  <Formik
-                    initialValues={{
-                      email: "",
-                      password: ""
-                    }}
-                    onSubmit={(values) => {
-                      console.log(values);
-                    }}
-                  >
-                    {({ errors, touched, isValidating }) => (
-                      <Form onSubmit={signIn}>
-                        <div className="formContainer">
-                          <Field name="email" validate={validateEmail} placeholder="Enter email" />
-
-                          {errors.email && touched.email && (
-                            <div><span style={{ color: "#ff665b" }}>{errors.email}</span></div>
-                          )}
-
-                          <Field name="password" type="password" validate={validatePassword} placeholder="Enter Password" />
-
-                          {errors.password && touched.password && (
-                            <div><span style={{ color: "#ff665b" }}>{errors.password}</span></div>
-                          )}
-                          <Modal.Footer>
-                            <Button variant="secondary" onClick={signInhandleClose}>
-                              Close
-                            </Button>
-                            <Button variant="primary" type="submit">Submit</Button>
-                          </Modal.Footer>
-
-                        </div>
-
-                      </Form>
-                    )}
-                  </Formik>
-                </div>
-
-              </Modal.Body>
-
-            </Modal>
-          ) : null}
-          {signupopen ? (
-            <Modal
-            show={signupopen}
-            onHide={signUphandleClose}
-            backdrop="static"
-            keyboard={false}
-          >
-            <Modal.Header closeButton>
-              <Modal.Title>Resume Builder</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Typography
-                id="transition-modal-title"
-                variant="h6"
-                component="h2"
+              <Modal
+                show={signInopen}
+                onHide={signInhandleClose}
+                backdrop="static"
+                keyboard={false}
               >
-                Sign Up
-              </Typography>
-              <Typography id="transition-modal-description" sx={{ mt: 2 }}>
-                Please fill all details to sign-up.
-              </Typography>
-              <div>
-                <Formik
-                  initialValues={{
-                    email: "",
-                    password: ""
-                  }}
-                  onSubmit={(values) => {
-                    console.log(values);
-                  }}
-                >
-                  {({ errors, touched, isValidating }) => (
-                    <Form>
-                      <div className="formContainer">
-                        <Field name="email" validate={validateEmail} placeholder="Enter email" />
+                <Modal.Header closeButton>
+                  <Modal.Title>Resume Builder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Typography
+                    id="transition-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    Sign In
+                  </Typography>
+                  <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                    Please fill all details to sign in.
+                  </Typography>
+                  <div>
+                    <Formik
+                      initialValues={{
+                        email: "",
+                        password: ""
+                      }}
+                      onSubmit={(values) => {
+                        console.log(values);
+                      }}
+                    >
+                      {({ errors, touched, isValidating }) => (
+                        <Form onSubmit={signIn}>
+                          <div className="formContainer">
+                            <Field name="email" validate={validateEmail} placeholder="Enter email" />
 
-                        {errors.email && touched.email && (
-                          <div><span style={{ color: "#ff665b" }}>{errors.email}</span></div>
-                        )}
+                            {errors.email && touched.email && (
+                              <div><span style={{ color: "#ff665b" }}>{errors.email}</span></div>
+                            )}
 
-                        <Field name="password" type="password" validate={validatePassword} placeholder="Enter Password" />
+                            <Field name="password" type="password" validate={validatePassword} placeholder="Enter Password" />
 
-                        {errors.password && touched.password && (
-                          <div><span style={{ color: "#ff665b" }}>{errors.password}</span></div>
-                        )}
-                        <Modal.Footer>
-                          <Button variant="secondary" onClick={signUphandleClose}>
-                            Close
-                          </Button>
-                          <Button variant="primary" type="submit">Submit</Button>
-                        </Modal.Footer>
+                            {errors.password && touched.password && (
+                              <div><span style={{ color: "#ff665b" }}>{errors.password}</span></div>
+                            )}
+                            <Modal.Footer>
+                              <Button variant="secondary" onClick={signInhandleClose}>
+                                Close
+                              </Button>
+                              <Button variant="primary" type="submit">Submit</Button>
+                            </Modal.Footer>
 
-                      </div>
+                          </div>
 
-                    </Form>
-                  )}
-                </Formik>
-              </div>
+                        </Form>
+                      )}
+                    </Formik>
+                  </div>
 
-            </Modal.Body>
+                </Modal.Body>
 
-          </Modal>
-          ) : null}
-        </div>
-        <div
-          id="intro-example"
-          className="p-5 text-center bg-image"
-          style={{
-            // backgroundImage:
-            //   "url('https://i.ibb.co/BNGSbhC/minimalist-background-uhd-8k-wallpaper.png')",
-            height: "626px"
-          }}
-        >
+              </Modal>
+            ) : null}
+            {signupopen ? (
+              <Modal
+                show={signupopen}
+                onHide={signUphandleClose}
+                backdrop="static"
+                keyboard={false}
+              >
+                <Modal.Header closeButton>
+                  <Modal.Title>Resume Builder</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Typography
+                    id="transition-modal-title"
+                    variant="h6"
+                    component="h2"
+                  >
+                    Sign Up
+                  </Typography>
+                  <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+                    Please fill all details to sign-up.
+                  </Typography>
+                  <div>
+                    <Formik
+                      initialValues={{
+                        email: "",
+                        password: ""
+                      }}
+                      onSubmit={(values) => {
+                        console.log(values);
+                      }}
+                    >
+                      {({ errors, touched, isValidating }) => (
+                        <Form onSubmit={signup}>
+                          <div className="formContainer">
+                            <Field name="email" validate={validateEmail} placeholder="Enter email" />
+
+                            {errors.email && touched.email && (
+                              <div><span style={{ color: "#ff665b" }}>{errors.email}</span></div>
+                            )}
+
+                            <Field name="password" type="password" validate={validatePassword} placeholder="Enter Password" />
+
+                            {errors.password && touched.password && (
+                              <div><span style={{ color: "#ff665b" }}>{errors.password}</span></div>
+                            )}
+                            <Modal.Footer>
+                              <Button variant="secondary" onClick={signUphandleClose}>
+                                Close
+                              </Button>
+                              <Button variant="primary" type="submit">Submit</Button>
+                            </Modal.Footer>
+
+                          </div>
+
+                        </Form>
+                      )}
+                    </Formik>
+                  </div>
+
+                </Modal.Body>
+
+              </Modal>
+            ) : null}
+          </div>
           <div
-            className="mask"
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+            id="intro-example"
+            className="p-5 text-center bg-image"
+            style={{
+              // backgroundImage:
+              //   "url('https://i.ibb.co/BNGSbhC/minimalist-background-uhd-8k-wallpaper.png')",
+              height: "626px"
+            }}
           >
-            <div className="d-flex justify-content-center align-items-center h-100">
-              <div className="text-white">
-                <h1 className="mb-3">Resume Builder</h1>
-                <MDBBtn id="btn-center" tag="a" outline size="lg" onClick={signInhandleOpen}>
-                  Create Resume Now
-                </MDBBtn>
+            <div
+              className="mask"
+              style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
+            >
+              <div className="d-flex justify-content-center align-items-center h-100">
+                <div className="text-white">
+                  <h1 className="mb-3">Resume Builder</h1>
+                  <MDBBtn id="btn-center" tag="a" outline size="lg" onClick={signInhandleOpen}>
+                    Create Resume Now
+                  </MDBBtn>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
+      <ToastContainer className="p-3" position="bottom-end">
+        <Toast show={successHandle} onClose={successHandleClose}>
+          <Toast.Header>
+            <img
+              src="holder.js/20x20?text=%20"
+              className="rounded me-2"
+              alt=""
+            />
+            <strong className="me-auto">Message</strong>
+            <small className="text-muted">just now</small>
+          </Toast.Header>
+          {typeof response === 'object' &&
+            !Array.isArray(response) &&
+            response !== null && 
+            response.exists ?
+            < Toast.Body > User already exists. </Toast.Body>
+            : < Toast.Body > {response} </Toast.Body>}
+        </Toast>
+      </ToastContainer>
+    </>
   );
 }
 
