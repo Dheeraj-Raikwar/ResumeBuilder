@@ -38,6 +38,16 @@
   margin-left: 5px;
 }
 
+.form-outer-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 10px;
+  padding-top: 100px;
+  margin-left: 50%;
+  margin-right: 50%;  
+}
+
 .formContainer {
   display: flex;
   flex-wrap: wrap;

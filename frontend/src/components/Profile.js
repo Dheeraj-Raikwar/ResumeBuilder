@@ -16,6 +16,7 @@ import { bindActionCreators } from "redux";
 import { actionCreators } from "../state/index";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
+import Table from "react-bootstrap/Table";
 
 function Profile() {
   const profile = useSelector((state) => state.profile);
@@ -50,20 +51,9 @@ function Profile() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  // const [file, setFile] = useState("./images/profile.jpg");
   function handleFile(e) {
     manageFile(URL.createObjectURL(e.target.files[0]));
-    // setFile(URL.createObjectURL(e.target.files[0]));
   }
-  // const [profile,setProfile] = useState({
-  //     name: "Your Name",
-  //     location: "City, Name",
-  //     github: "",
-  //     linkedin: "",
-  //     website: "",
-  //     position: "Your Position",
-  //     tagline: "Describe yourself in one line"
-  // })
 
   const handleProfile = (e) => {
     manageProfile({
@@ -85,15 +75,9 @@ function Profile() {
         } else setEmailerror(true);
       }
     }
-    // setProfile((old)=>{
-    //     return {
-    //         ...old,
-    //         [e.target.name]:e.target.value
-    //     }
-    // })
   };
 
-  useEffect(() => {}, [alert, alertType, emailError]);
+  useEffect(() => {}, [alert]);
 
   const handleAlertHide = () => {
     setProfileName("");
@@ -124,11 +108,7 @@ function Profile() {
         >
           <h5 className="m-0">Profile</h5>
           {!isEdit && (
-            <MdAddCircleOutline
-              size={30}
-              className="rounded edit"
-              onClick={handleShow}
-            />
+            <MdEdit size={30} className="rounded edit" onClick={handleShow} />
           )}
           {isEdit && (
             <MdEdit size={30} className="rounded edit" onClick={handleShow} />
@@ -136,25 +116,46 @@ function Profile() {
         </Col>
 
         <Col md={8} sm={12}>
-          {<p className="text-muted m-0">Name: {profile.name}</p>}
-        </Col>
-        <Col md={8} sm={12}>
-          {<p className="text-muted m-0">Location: {profile.location}</p>}
-        </Col>
-        <Col md={8} sm={12}>
-          {<p className="text-muted m-0">Github: {profile.github}</p>}
-        </Col>
-        <Col md={8} sm={12}>
-          {<p className="text-muted m-0">Linkedin: {profile.linkedin}</p>}
-        </Col>
-        <Col md={8} sm={12}>
-          {<p className="text-muted m-0">Website: {profile.website}</p>}
-        </Col>
-        <Col md={8} sm={12}>
-          {<p className="text-muted m-0">Position: {profile.position}</p>}
-        </Col>
-        <Col md={8} sm={12}>
-          {<p className="text-muted m-0">Tagline: {profile.tagline}</p>}
+
+          <Table responsive="sm">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>name</th>
+                <th>location</th>
+                <th>github</th>
+                <th>linkedin</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>0</th>
+                <td>{profile.name}</td>
+                <td>{profile.location}</td>
+                <td>{profile.github}</td>
+                <td>{profile.linkedin}</td>
+              </tr>
+            </tbody>
+          </Table>
+
+          <Table responsive="md">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>website</th>
+                <th>position</th>
+                <th>tagline</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th>0</th>
+                <td>{profile.website}</td>
+                <td>{profile.position}</td>
+                <td>{profile.tagline}</td>
+              </tr>
+            </tbody>
+          </Table>
         </Col>
 
         <Modal show={show} onHide={handleClose} centered backdrop="static">
@@ -166,6 +167,7 @@ function Profile() {
           <Modal.Body>
             <Form>
               <Form.Group className="mb-3">
+                <Form.Label>Full Name</Form.Label>
                 <Form.Control
                   type="text"
                   name="name"
@@ -176,6 +178,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
+                <Form.Label>Location</Form.Label>
                 <Form.Control
                   type="text"
                   name="location"
@@ -186,6 +189,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
+                <Form.Label>Position</Form.Label>
                 <Form.Control
                   type="text"
                   name="position"
@@ -196,6 +200,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
+                <Form.Label>Description</Form.Label>
                 <Form.Control
                   type="text"
                   name="tagline"
@@ -206,6 +211,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
                 <Form.Control
                   type="email"
                   name="email"
@@ -221,41 +227,45 @@ function Profile() {
                 ) : null}
               </Form.Group>
               <Form.Group className="mb-3">
+                <Form.Label>Mobile No.</Form.Label>
                 <Form.Control
                   type="number"
                   name="contact"
                   size="sm"
-                  placeholder="Contact Number"
+                  placeholder="815-561-9082"
                   value={profile.contact}
                   onChange={handleProfile}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
+                <Form.Label>Github Link</Form.Label>
                 <Form.Control
                   type="text"
                   name="github"
                   size="sm"
-                  placeholder="GitHub Profile"
+                  placeholder="https://github.com/"
                   value={profile.github}
                   onChange={handleProfile}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
+                <Form.Label>Linkedin Link</Form.Label>
                 <Form.Control
                   type="text"
                   name="linkedin"
                   size="sm"
-                  placeholder="LinkedIn Profile"
+                  placeholder="https://www.linkedin.com/"
                   value={profile.linkedin}
                   onChange={handleProfile}
                 />
               </Form.Group>
               <Form.Group className="mb-3">
+                <Form.Label>Website URL</Form.Label>
                 <Form.Control
                   type="text"
                   name="website"
                   size="sm"
-                  placeholder="Your Portfolio Website"
+                  placeholder="www.mywebsite.com"
                   value={profile.website}
                   onChange={handleProfile}
                 />
@@ -277,13 +287,6 @@ function Profile() {
             </button>
           </Modal.Footer>
         </Modal>
-        {/* <Modal show={alert} onHide={handleAlertHide}>
-                    <Modal.Header>
-                        <Modal.Title>Error</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>{alertType.name ? "Name is required":null}</Modal.Body>
-
-                </Modal> */}
       </Row>
 
       <ToastContainer className="p-3" position="top-end">

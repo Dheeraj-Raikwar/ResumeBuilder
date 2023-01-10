@@ -6,11 +6,11 @@ import Experience from './Experience';
 import Education from './Education';
 import Skills from './Skills';
 import { NavLink } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+
 
 function Editor() {
 
-  const navigate = useNavigate();
+  
 
   const [type, setType] = useState();
   const [isGraduate, setisGraduate] = useState(false);
@@ -31,24 +31,8 @@ function Editor() {
 
   }, [type]);
 
-  function logout() {
-    navigate('/');
-  }
-
   return (
     <Fragment>
-
-      {/* Header */}
-      <div className="header-container">
-        <div className="btn-container">
-          <Button id="logout-btn" variant="outlined" onClick={logout}>
-            Log Out{" "}
-          </Button>
-        </div>
-      </div>
-
-      {/* Top Container */}
-      <Container fluid className="p-0 top-image"></Container>
 
       {/* Card Container */}
       <Container>
@@ -61,26 +45,20 @@ function Editor() {
         <div className='Card-container'>
           <Row xs={1} md={2} className="g-4">
             <Col>
-              <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="https://img.freepik.com/free-photo/young-graduate-showing-her-certificate-close-up_23-2148232810.jpg" />
+              <Card style={{ width: '18rem', height: '19rem' }}>
+                <Card.Img variant="top" src='https://iili.io/H7UvS6v.webp'/>
                 <Card.Body>
                   <Card.Title>Graduate</Card.Title>
-                  <Card.Text>
-                    For graduates and freshers.
-                  </Card.Text>
-                  <Button variant="primary" disabled={isGraduate} onClick={() => setType('gra')}>{isGraduate ? <span style={{ color: '#9b7d79' }}>Selected</span> : <span>Select</span>}</Button>
+                  <Button variant={isGraduate? "success" :"primary"} disabled={isGraduate} onClick={() => setType('gra')}>{isGraduate ? <span style={{ color: '#fff68f' }}>Selected</span> : <span>Select</span>}</Button>
                 </Card.Body>
               </Card>
             </Col>
             <Col>
-              <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="https://img.freepik.com/free-vector/business-people-teamwork-suit-clothes_40876-2435.jpg" />
+              <Card style={{ width: '18rem', height: '19rem' }}>
+                <Card.Img variant="top" src='https://iili.io/H7UvgFR.jpg'/>
                 <Card.Body>
                   <Card.Title>Experienced</Card.Title>
-                  <Card.Text>
-                    For experienced.
-                  </Card.Text>
-                  <Button variant="primary" disabled={isExperienced} onClick={() => setType('exp')}>{isExperienced ? <span style={{ color: '#9b7d79' }}>Selected</span> : <span>Select</span>}</Button>
+                  <Button variant={isExperienced? "success" :"primary"} disabled={isExperienced} onClick={() => setType('exp')}>{isExperienced ? <span style={{ color: '#fff68f' }}>Selected</span> : <span>Select</span>}</Button>
                 </Card.Body>
               </Card>
             </Col>

@@ -142,17 +142,14 @@ body {
 }
 
 .btn-container {
-  width: 320px;
-  display: inline-block;
   margin-left: auto;
   height: 42px;
 }
 
 #logout-btn{
-  margin-right: 5px;
   background: #F9CFE1;
   color: #512013;
-  height: 35px;
+  height: 40px;
 }
 
 
