@@ -26,13 +26,14 @@ function Preview() {
   const experienceList = useSelector((state) => state.experienceList);
   const educationList = useSelector((state) => state.educationList);
   const skills = useSelector((state) => state.skills);
+  const [userEmail, setUserEmail] = useState();
 
   const [userId, setUserId] = useState();
 
   const navigate = useNavigate();
 
   const resumeType = localStorage.getItem("resumeType");
- 
+
   const data = {
     profile: profile,
     name: name,
@@ -49,7 +50,7 @@ function Preview() {
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "pt", "a4", false);
-      pdf.addImage(imgData, "PNG", 0, 0, 600, 0, undefined, false);
+      pdf.addImage(imgData, "PNG", 0, 0, 600, 850, undefined, false);
       // pdf.output('dataurlnewwindow');
       pdf.save("resume1.pdf");
       saveDetailsTodb();
@@ -62,7 +63,7 @@ function Preview() {
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "pt", "a4", false);
-      pdf.addImage(imgData, "PNG", 0, 0, 600, 0, undefined, false);
+      pdf.addImage(imgData, "PNG", 0, 0, 600, 850, undefined, false);
       // pdf.output('dataurlnewwindow');
       pdf.save("resume2.pdf");
       saveDetailsTodb();
@@ -124,8 +125,9 @@ function Preview() {
   };
 
   useEffect(() => {
+    setUserEmail(localStorage.getItem('userEmail'))
     getUserId();
-  }, []);
+  }, [userEmail]);
 
   const saveProfileDetails = () => {
     fetch("http://localhost:3001/profileDetails", {
@@ -362,12 +364,11 @@ function Preview() {
   return (
     <Fragment>
 
-      {/* <div className="container d-flex justify-content-center p-4"> */}
-
+      { userEmail !='null' && typeof userEmail ==='string'  ?  <>
       <div className="template-container">
-        {/*Template 1 */}
+        {/*Template 1 */} 
         <div className="template">
-
+        <h4>Template 1</h4>
           <div className="row pdf bg-light" id="divToPrint1" size="A4">
             <div className="header-container">
               <div>
@@ -382,6 +383,7 @@ function Preview() {
                     />
 
                     <title>Resume</title>
+                    
                   </head>
                   <body>
                     <div>
@@ -470,13 +472,14 @@ function Preview() {
                                       <p className="m-0">
                                         {item.company} • {item.startMonth}{" "}
                                         {item.startYear}{" "}
-                                        {`${item.isWorking
+                                        {`${
+                                          item.isWorking
                                             ? " - Present"
                                             : " - " +
-                                            item.endMonth +
-                                            " " +
-                                            item.endYear
-                                          }`}
+                                              item.endMonth +
+                                              " " +
+                                              item.endYear
+                                        }`}
                                       </p>
                                       <p className="m-0">{item.location}</p>
                                       <p>{item.description}</p>
@@ -518,9 +521,8 @@ function Preview() {
                 </html>
               </div>
             </div>
-           
           </div>
-          <div className="d-grid col-2 mx-auto mt-4">
+          <div className="d-grid mx-auto mt-4">
             <button
               className="nav-link align-middle bg-dark text-white p-2 rounded"
               onClick={printDocument1}
@@ -528,11 +530,11 @@ function Preview() {
               Download Template 1
             </button>
           </div>
-          
         </div>
 
         {/* Template 2 */}
         <div className="template">
+        <h4>Template 2</h4>
           <div row pdf bg-light id="border">
             <div className="row pdf bg-light" id="divToPrint2" size="A4">
               <div className="d-flex align-items-center justify-content-center col-md-5 bg-1 p-0 py-2">
@@ -600,10 +602,11 @@ function Preview() {
                               <p className="m-0">
                                 {item.company} • {item.startMonth}{" "}
                                 {item.startYear}{" "}
-                                {`${item.isWorking
+                                {`${
+                                  item.isWorking
                                     ? " - Present"
                                     : " - " + item.endMonth + " " + item.endYear
-                                  }`}
+                                }`}
                               </p>
                               <p className="m-0">{item.location}</p>
                               <p>{item.description}</p>
@@ -642,19 +645,19 @@ function Preview() {
                 </div>
               </div>
             </div>
-
-
           </div>
-          <div className="d-grid col-2 mx-auto mt-4">
-              <button
-                className="nav-link align-middle bg-dark text-white p-2 rounded"
-                onClick={printDocument2}
-              >
-                Download Template 2
-              </button>
-            </div>
+          <div className="d-grid mx-auto mt-4">
+            <button
+              className="nav-link align-middle bg-dark text-white p-2 rounded"
+              onClick={printDocument2}
+            >
+              Download Template 2
+            </button>
+          </div>
         </div>
       </div>
+      </>
+      :<p>Page not Found</p>}
     </Fragment>
   );
 }

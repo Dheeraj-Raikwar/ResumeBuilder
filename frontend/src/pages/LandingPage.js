@@ -5,15 +5,15 @@ import React, { useState } from "react";
 import { MDBBtn } from "mdb-react-ui-kit";
 import { Typography } from "@mui/material";
 import { Formik, Form, Field } from "formik";
-import RForm from 'react-bootstrap/Form';
-import { useNavigate } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import RForm from "react-bootstrap/Form";
+import { useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
 import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
-import Container from 'react-bootstrap/Container';
-import Navbar from 'react-bootstrap/Navbar';
-import Alert from 'react-bootstrap/Alert';
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
+import Alert from "react-bootstrap/Alert";
 function LandingPage() {
   const [signInopen, setsignInopen] = useState(false);
 
@@ -25,28 +25,25 @@ function LandingPage() {
   const signUphandleClose = () => setsignupopen(false);
 
   const [successHandle, setsuccessHandle] = useState(false);
-  const successHandleOpen = () => setsuccessHandle()
-  const successHandleClose = () => setsuccessHandle(false)
+  const successHandleOpen = () => setsuccessHandle();
+  const successHandleClose = () => setsuccessHandle(false);
 
   const [response, setResponse] = useState();
 
   const navigate = useNavigate();
 
-  const [userEmail, setEmail] = useState();
-  const [userPassword, setPassword] = useState();
-
+  const [userEmail, setEmail] = useState("");
+  const [userPassword, setPassword] = useState("");
 
   var emailError, passwordError;
 
   function validateEmail(value) {
-
     if (!value) {
       emailError = "Required";
     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(value)) {
       emailError = "Invalid email address";
-    }
-    else {
-      emailError = " "
+    } else {
+      emailError = " ";
       setEmail(value);
     }
 
@@ -54,15 +51,15 @@ function LandingPage() {
   }
 
   function validatePassword(value) {
-    var regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+    var regex =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
     if (value.length < 8) {
       passwordError = "Password should be min length of 8, max: 15 characters";
-    }
-    else if (!value.match(regex)) {
-      passwordError = "password should contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character";
-    }
-    else {
-      passwordError = " "
+    } else if (!value.match(regex)) {
+      passwordError =
+        "password should contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character";
+    } else {
+      passwordError = " ";
       setPassword(value);
     }
 
@@ -70,6 +67,16 @@ function LandingPage() {
   }
 
   function signIn(e) {
+    if (
+      userEmail === "" ||
+      userEmail === null ||
+      userPassword === "" ||
+      userPassword === null
+    ) {
+      setResponse("Please enter details");
+      successHandleOpen();
+      e.preventDefault();
+    }
     fetch("http://localhost:3001/login", {
       method: "POST",
       body: JSON.stringify({
@@ -87,20 +94,17 @@ function LandingPage() {
           setResponse(data.message);
           successHandleOpen();
           e.preventDefault();
-        }
-        else if (data.message === "True") {
+        } else if (data.message === "True") {
           setResponse("Login successful");
           successHandleOpen();
           e.preventDefault();
-          localStorage.setItem('userEmail', userEmail)
-          navigate('./home')
-        }
-        else if (data.message === "False") {
+          localStorage.setItem("userEmail", userEmail);
+          navigate("./home");
+        } else if (data.message === "False") {
           setResponse("Email or Password mismatch");
           successHandleOpen();
           e.preventDefault();
-        }
-        else {
+        } else {
           setResponse("Something went wrong");
           successHandleOpen();
           e.preventDefault();
@@ -116,7 +120,7 @@ function LandingPage() {
       method: "POST",
       body: JSON.stringify({
         email: userEmail,
-        password: userPassword
+        password: userPassword,
       }),
       headers: {
         "Content-type": "application/json; charset=UTF-8",
@@ -138,14 +142,15 @@ function LandingPage() {
   return (
     <>
       <header>
-
-        <Navbar>
-          <Container>
-            <Navbar.Brand href="#home">Resume Builder</Navbar.Brand>
-            <Navbar.Toggle />
-          </Container>
+        <Navbar className="bg-info">
+          <img
+            src="https://apps.odoocdn.com/web/image/loempia.module/144565/icon_image/"
+            width="50"
+            height="60"
+          />
+          <Navbar.Brand href="#home">Resume Builder</Navbar.Brand>
+          <Navbar.Toggle />
         </Navbar>
-
       </header>
 
       <div className="body-container">
@@ -156,129 +161,149 @@ function LandingPage() {
             style={{
               // backgroundImage:
               //   "url('https://i.ibb.co/BNGSbhC/minimalist-background-uhd-8k-wallpaper.png')",
-              height: "626px"
+              height: "720px",
             }}
           >
-            <div
-              className="mask"
-              style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
-            >
-              <div className="d-flex justify-content-center align-items-center h-100">
-                <div className="text-white">
-                  <MDBBtn id="btn-center" tag="a" outline size="mx-2" href="#sectionId">
-                    Create Resume Now
-                  </MDBBtn>
+            <section id="sectionId">
+              <div className="form-outer-container">
+                <div className="formContainer">
+                  <h5>Login</h5>
+                  <Formik
+                    initialValues={{
+                      email: "",
+                      password: "",
+                    }}
+                    onSubmit={(values) => {
+                      console.log(values);
+                    }}
+                  >
+                    {({ errors, touched, isValidating }) => (
+                      <Form onSubmit={signIn}>
+                        <div>
+                          {/* <RForm.Label>Email</RForm.Label> */}
+                          <Field
+                            name="email"
+                            validate={validateEmail}
+                            placeholder="Enter email"
+                          />
+
+                          {errors.email && touched.email && (
+                            <div>
+                              <span style={{ color: "#ff665b" }}>
+                                {errors.email}
+                              </span>
+                            </div>
+                          )}
+                          <br />
+                          <br />
+                          {/* <RForm.Label>Password</RForm.Label> */}
+                          <Field
+                            name="password"
+                            type="password"
+                            validate={validatePassword}
+                            placeholder="Enter Password"
+                          />
+
+                          {errors.password && touched.password && (
+                            <div>
+                              <span style={{ color: "#ff665b" }}>
+                                {errors.password}
+                              </span>
+                            </div>
+                          )}
+
+                          <Button
+                            variant="primary"
+                            type="submit"
+                            className="signin m-3"
+                          >
+                            Login
+                          </Button>
+                          <div className="d-flex flex-row">
+                            <p>Not a user?</p>
+                            <Alert.Link onClick={signUphandleOpen}>
+                              Sign up
+                            </Alert.Link>
+                          </div>
+                        </div>
+                      </Form>
+                    )}
+                  </Formik>
                 </div>
               </div>
-            </div>
+            </section>
           </div>
         </div>
       </div>
 
-      <section id="sectionId">
-        <div className="form-outer-container">
-          <div>
-          <h5>Login</h5>
-          <Formik
-            initialValues={{
-              email: "",
-              password: ""
-            }}
-            onSubmit={(values) => {
-              console.log(values);
-            }}
-          >
-            
-            {({ errors, touched, isValidating }) => (
-              <Form onSubmit={signIn}>
-                
-                <div className="formContainer">
-                <RForm.Label>Email</RForm.Label>
-                <Field name="email" validate={validateEmail} placeholder="Enter email" />
-
-                  {errors.email && touched.email && (
-                    <div><span style={{ color: "#ff665b" }}>{errors.email}</span></div>
-                  )}
-                  <RForm.Label>Passoword</RForm.Label>
-                  <Field name="password" type="password" validate={validatePassword} placeholder="Enter Password" />
-
-                  {errors.password && touched.password && (
-                    <div><span style={{ color: "#ff665b" }}>{errors.password}</span></div>
-                  )}
-
-                  <Button variant="primary" type="submit" className="signin">Login</Button>
-                  <Alert variant='success'>
-                  <Alert.Link onClick={signUphandleOpen}>Sign up</Alert.Link>.
-                  </Alert>
-
-                </div>
-
-              </Form>
-            )}
-          </Formik>
-          </div>
-
-        </div>
-      </section>
-
       {signupopen ? (
-              <Modal
-                show={signupopen}
-                onHide={signUphandleClose}
-                backdrop="static"
-                keyboard={false}
+        <Modal
+          show={signupopen}
+          onHide={signUphandleClose}
+          backdrop="static"
+          keyboard={false}
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Resume Builder</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Typography id="transition-modal-title" variant="h6" component="h2">
+              Sign Up
+            </Typography>
+            <div>
+              <Formik
+                initialValues={{
+                  email: "",
+                  password: "",
+                }}
+                onSubmit={(values) => {
+                  console.log(values);
+                }}
               >
-                <Modal.Header closeButton>
-                  <Modal.Title>Resume Builder</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                  <Typography
-                    id="transition-modal-title"
-                    variant="h6"
-                    component="h2"
-                  >
-                    Sign Up
-                  </Typography>
-                  <div>
-                    <Formik
-                      initialValues={{
-                        email: "",
-                        password: ""
-                      }}
-                      onSubmit={(values) => {
-                        console.log(values);
-                      }}
-                    >
-                      {({ errors, touched, isValidating }) => (
-                        <Form onSubmit={signup}>
-                          <div className="formContainer">
-                            <Field name="email" validate={validateEmail} placeholder="Enter email" />
+                {({ errors, touched, isValidating }) => (
+                  <Form onSubmit={signup}>
+                    <div className="formContainer">
+                      <Field
+                        name="email"
+                        validate={validateEmail}
+                        placeholder="Enter email"
+                      />
 
-                            {errors.email && touched.email && (
-                              <div><span style={{ color: "#ff665b" }}>{errors.email}</span></div>
-                            )}
-
-                            <Field name="password" type="password" validate={validatePassword} placeholder="Enter Password" />
-
-                            {errors.password && touched.password && (
-                              <div><span style={{ color: "#ff665b" }}>{errors.password}</span></div>
-                            )}
-                            <Modal.Footer>
-                              <Button variant="primary" type="submit">Sign Up</Button>
-                            </Modal.Footer>
-
-                          </div>
-
-                        </Form>
+                      {errors.email && touched.email && (
+                        <div>
+                          <span style={{ color: "#ff665b" }}>
+                            {errors.email}
+                          </span>
+                        </div>
                       )}
-                    </Formik>
-                  </div>
 
-                </Modal.Body>
+                      <Field
+                        name="password"
+                        type="password"
+                        validate={validatePassword}
+                        placeholder="Enter Password"
+                      />
 
-              </Modal>
-            ) : null}
-
+                      {errors.password && touched.password && (
+                        <div>
+                          <span style={{ color: "#ff665b" }}>
+                            {errors.password}
+                          </span>
+                        </div>
+                      )}
+                      <Modal.Footer>
+                        <Button variant="primary" type="submit">
+                          Sign Up
+                        </Button>
+                      </Modal.Footer>
+                    </div>
+                  </Form>
+                )}
+              </Formik>
+            </div>
+          </Modal.Body>
+        </Modal>
+      ) : null}
 
       <ToastContainer className="p-3" position="bottom-end">
         <Toast show={successHandle} onClose={successHandleClose}>
@@ -291,12 +316,14 @@ function LandingPage() {
             <strong className="me-auto">Message</strong>
             <small className="text-muted">just now</small>
           </Toast.Header>
-          {typeof response === 'object' &&
-            !Array.isArray(response) &&
-            response !== null &&
-            response.exists ?
-            < Toast.Body > User already exists. </Toast.Body>
-            : < Toast.Body > {response} </Toast.Body>}
+          {typeof response === "object" &&
+          !Array.isArray(response) &&
+          response !== null &&
+          response.exists ? (
+            <Toast.Body> User already exists. </Toast.Body>
+          ) : (
+            <Toast.Body> {response} </Toast.Body>
+          )}
         </Toast>
       </ToastContainer>
     </>

@@ -41,8 +41,8 @@ function About() {
 
     return (
         <Row className="justify-content-center mt-2">
-            <Col md={8} sm={12} className="d-flex justify-content-between align-items-center bg-light rounded">
-                <h5 className="m-0">About</h5>
+            <Col md={8} sm={12} className="d-flex justify-content-between align-items-center bg-info bg-gradient rounded">
+                <h6 className="m-0">About</h6>
                 {!isEdit && <MdEdit size={30} className="rounded edit" onClick={handleShow} />}
                 {isEdit && <MdEdit size={30} className="rounded edit" onClick={handleShow} />}
             </Col>
@@ -56,7 +56,7 @@ function About() {
             </Col>
             <Modal show={show} onHide={handleClose} centered backdrop="static">
                 <Modal.Header>
-                    <Modal.Title>About</Modal.Title>
+                    <Modal.Title><h6>About</h6></Modal.Title>
                     <MdClose size={30} className="rounded edit" onClick={handleClose} />
                 </Modal.Header>
 
@@ -70,7 +70,7 @@ function About() {
 
                 <Modal.Footer>
                     <button type="submit" className="rounded edit px-2" onClick={handleClose}>
-                        Save Changes
+                    <h6>Save Changes</h6>
                     </button>
                 </Modal.Footer>
             </Modal>

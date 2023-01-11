@@ -125,8 +125,8 @@ function Experience() {
 
   return (
     <Row className="justify-content-center mt-2">
-      <Col md={8} sm={12} className="d-flex justify-content-between align-items-center bg-light rounded">
-        <h5 className="m-0">Experience</h5>
+      <Col md={8} sm={12} className="d-flex justify-content-between align-items-center bg-danger bg-gradient rounded">
+        <h6 className="m-0">Experience</h6>
         <MdAddCircleOutline size={30} className="rounded edit" onClick={handleShow} />
       </Col>
       <Col md={8} sm={12}>
@@ -158,28 +158,28 @@ function Experience() {
       </Col>
       <Modal show={show} onHide={handleClose} centered scrollable={true} backdrop="static">
         <Modal.Header>
-          <Modal.Title>Experience</Modal.Title>
+          <Modal.Title><h6>Experience</h6></Modal.Title>
           <MdClose size={30} className="rounded edit" onClick={handleClose} />
         </Modal.Header>
 
         <Modal.Body>
           <Form noValidate validated={validated} onSubmit={handleSubmit}>
             <Form.Group className="mb-3">
-              <Form.Label>Title</Form.Label>
+              <Form.Label><h6>Title</h6></Form.Label>
               <Form.Control required type="text" size="sm" placeholder="Ex: React Developer" name="title" value={form.title} onChange={handleForm} />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Company Name</Form.Label>
+              <Form.Label><h6>Company Name</h6></Form.Label>
               <Form.Control required type="text" size="sm" placeholder="Ex: Amazon" name="company" value={form.company} onChange={handleForm} />
             </Form.Group>
             <Form.Group className="mb-3" controlId="formBasicCheckbox">
-              <Form.Check type="checkbox" label="I am currently working in this role" name="isWorking" checked={form.isWorking} onChange={handleForm} />
+            <h6><Form.Check type="checkbox" label="I am currently working in this role" name="isWorking" checked={form.isWorking} onChange={handleForm} /></h6>
             </Form.Group>
             <Form.Group className="mb-3">
               <Row>
                 <Col>
                   <Row>
-                    <Form.Label>Start Month - Year</Form.Label>
+                    <Form.Label><h6>Start Month - Year</h6></Form.Label>
                   </Row>
                   <Row>
                     <Col>
@@ -199,7 +199,7 @@ function Experience() {
 
                     <Col>
                       <Row>
-                        <Form.Label>End Month - Year</Form.Label>
+                        <Form.Label><h6>End Month - Year</h6></Form.Label>
                       </Row>
                       <Row>
                         <Col>
@@ -226,16 +226,18 @@ function Experience() {
 
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Location</Form.Label>
+              <Form.Label><h6>Location</h6></Form.Label>
               <Form.Control required type="text" size="sm" placeholder="Ex: Pune, India" name="location" value={form.location} onChange={handleForm} />
             </Form.Group>
             <Form.Group className="mb-3">
-              <Form.Label>Description</Form.Label>
+              <Form.Label><h6>Description</h6></Form.Label>
               <Form.Control required type="text" size="sm" placeholder="Ex: Worked as a Front-End Developer" name="description" value={form.description} onChange={handleForm} />
             </Form.Group>
+            <Modal.Footer>
             <button type="submit" className="rounded edit px-2">
-              Save Changes
+            <h6>Save Changes</h6>
             </button>
+            </Modal.Footer>
 
           </Form>
         </Modal.Body>
@@ -243,7 +245,7 @@ function Experience() {
       </Modal>
       <Modal show={Alert} onHide={handleAlertClose} className="text-center" size="sm" centered>
         <Modal.Body>
-          <h4>Are you sure ?</h4>
+          <h6>Are you sure ?</h6>
           <ImCheckmark size={30} className="rounded edit" onClick={() => {handleDelete(deleteId)}}/>
           <ImCross size={25} className="rounded edit" onClick={handleAlertClose} />
         </Modal.Body>

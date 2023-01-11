@@ -104,9 +104,9 @@ function Profile() {
         <Col
           md={8}
           sm={12}
-          className="d-flex justify-content-between align-items-center bg-light rounded"
+          className="d-flex justify-content-between align-items-center bg-secondary bg-gradient rounded"
         >
-          <h5 className="m-0">Profile</h5>
+          <h6 className="m-0">Profile</h6>
           {!isEdit && (
             <MdEdit size={30} className="rounded edit" onClick={handleShow} />
           )}
@@ -129,7 +129,7 @@ function Profile() {
             </thead>
             <tbody>
               <tr>
-                <th>0</th>
+                <th>-</th>
                 <td>{profile.name}</td>
                 <td>{profile.location}</td>
                 <td>{profile.github}</td>
@@ -149,7 +149,7 @@ function Profile() {
             </thead>
             <tbody>
               <tr>
-                <th>0</th>
+                <th>-</th>
                 <td>{profile.website}</td>
                 <td>{profile.position}</td>
                 <td>{profile.tagline}</td>
@@ -160,14 +160,14 @@ function Profile() {
 
         <Modal show={show} onHide={handleClose} centered backdrop="static">
           <Modal.Header>
-            <Modal.Title>Profile Details</Modal.Title>
+            <Modal.Title><h6>Profile Details</h6></Modal.Title>
             <MdClose size={30} className="rounded edit" onClick={handleClose} />
           </Modal.Header>
 
           <Modal.Body>
             <Form>
               <Form.Group className="mb-3">
-                <Form.Label>Full Name</Form.Label>
+                <Form.Label><h6>Full Name</h6></Form.Label>
                 <Form.Control
                   type="text"
                   name="name"
@@ -178,7 +178,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Location</Form.Label>
+                <Form.Label><h6>Location</h6></Form.Label>
                 <Form.Control
                   type="text"
                   name="location"
@@ -189,7 +189,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Position</Form.Label>
+                <Form.Label><h6>Position</h6></Form.Label>
                 <Form.Control
                   type="text"
                   name="position"
@@ -200,7 +200,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Description</Form.Label>
+                <Form.Label><h6>Description</h6></Form.Label>
                 <Form.Control
                   type="text"
                   name="tagline"
@@ -211,7 +211,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
+                <Form.Label><h6>Email</h6></Form.Label>
                 <Form.Control
                   type="email"
                   name="email"
@@ -227,7 +227,7 @@ function Profile() {
                 ) : null}
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Mobile No.</Form.Label>
+                <Form.Label><h6>Mobile No.</h6></Form.Label>
                 <Form.Control
                   type="number"
                   name="contact"
@@ -238,7 +238,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Github Link</Form.Label>
+                <Form.Label><h6>Github Link</h6></Form.Label>
                 <Form.Control
                   type="text"
                   name="github"
@@ -249,7 +249,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Linkedin Link</Form.Label>
+                <Form.Label><h6>Linkedin Link</h6></Form.Label>
                 <Form.Control
                   type="text"
                   name="linkedin"
@@ -260,7 +260,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label>Website URL</Form.Label>
+                <Form.Label><h6>Website URL</h6></Form.Label>
                 <Form.Control
                   type="text"
                   name="website"
@@ -271,7 +271,7 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group controlId="formFileSm" className="mb-3">
-                <Form.Label>Profile Picture</Form.Label>
+                <Form.Label><h6>Profile Picture</h6></Form.Label>
                 <Form.Control type="file" size="sm" onChange={handleFile} />
               </Form.Group>
             </Form>
@@ -283,7 +283,7 @@ function Profile() {
               className="rounded edit px-2"
               onClick={saveChanges}
             >
-              Save Changes
+             <h6> Save Changes</h6>
             </button>
           </Modal.Footer>
         </Modal>

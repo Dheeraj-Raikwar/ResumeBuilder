@@ -9,15 +9,14 @@ import { NavLink } from 'react-router-dom';
 
 
 function Editor() {
-
-  
-
   const [type, setType] = useState();
   const [isGraduate, setisGraduate] = useState(false);
   const [isExperienced, setIsExperienced] = useState(false);
+  const [userEmail, setUserEmail] = useState();
 
   useEffect(() => {
-
+    
+    setUserEmail(localStorage.getItem('userEmail'))
     if (type === 'gra') {
       setisGraduate(true)
       setIsExperienced(false)
@@ -29,18 +28,20 @@ function Editor() {
 
     localStorage.setItem('resumeType', type);
 
-  }, [type]);
+  }, [type,userEmail]);
 
   return (
+    
     <Fragment>
-
+      { userEmail !='null' && typeof userEmail ==='string'  ? 
+      <>
       {/* Card Container */}
       <Container>
-        <Row className="justify-content-center mt-2">
+        {/* <Row className="justify-content-center mt-2">
           <Col md={8} sm={12} className="d-flex justify-content-between align-items-center bg-light rounded">
             <h5 className="m-0">Choose Resume Type</h5>
           </Col>
-        </Row>
+        </Row> */}
 
         <div className='Card-container'>
           <Row xs={1} md={2} className="g-4">
@@ -48,7 +49,7 @@ function Editor() {
               <Card style={{ width: '18rem', height: '19rem' }}>
                 <Card.Img variant="top" src='https://iili.io/H7UvS6v.webp'/>
                 <Card.Body>
-                  <Card.Title>Graduate</Card.Title>
+                  <Card.Title>Graduate/Fresher</Card.Title>
                   <Button variant={isGraduate? "success" :"primary"} disabled={isGraduate} onClick={() => setType('gra')}>{isGraduate ? <span style={{ color: '#fff68f' }}>Selected</span> : <span>Select</span>}</Button>
                 </Card.Body>
               </Card>
@@ -68,8 +69,9 @@ function Editor() {
 
 
       {/* Main Container for editing Rows Components*/}
-      <Container>
 
+      {typeof type !== 'undefined' ?
+      <Container>
         <Profile></Profile>
 
         <About></About>
@@ -85,7 +87,10 @@ function Editor() {
         </div>
 
       </Container>
+      :null}
+      </>
 
+      : <h6>Page Not Found</h6>}
     </Fragment>
   )
 }

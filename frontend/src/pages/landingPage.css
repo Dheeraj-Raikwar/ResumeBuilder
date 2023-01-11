@@ -1,6 +1,5 @@
 #intro-example {
   background-image: url("../../public/images/25334026_resume_01.jpg");
-  /* height: "626px" */
 }
 
 .header-container {
@@ -20,36 +19,39 @@
 
 #signin {
   margin-right: 5px;
-  background: #F9CFE1;
+  background: #f9cfe1;
   color: #512013;
   height: 35px;
 }
 
 #signup {
-  background: #F9CFE1;
+  background: #f9cfe1;
   color: #512013;
   margin-left: 5px;
   height: 35px;
 }
 
 #btn-center {
-  background: #F9CFE1;
+  background: #f9cfe1;
   color: #512013;
   margin-left: 5px;
 }
 
-.form-outer-container{
+.form-outer-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   width: 10px;
   padding-top: 100px;
   margin-left: 50%;
-  margin-right: 50%;  
+  margin-right: 50%;
 }
 
 .formContainer {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
+  background-color: #f5e3eb;
+  padding: 20px;
+  border-radius: 10px;
 }
