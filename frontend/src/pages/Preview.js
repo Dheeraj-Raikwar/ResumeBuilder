@@ -18,6 +18,8 @@ import Button from "react-bootstrap/Button";
 import { useNavigate } from "react-router-dom";
 import { useRadioGroup } from "@mui/material";
 
+
+// Preview component
 function Preview() {
   const profile = useSelector((state) => state.profile);
   const name = profile.name.split(" ");
@@ -44,6 +46,7 @@ function Preview() {
     skills: skills,
   };
 
+  // Method to print template 1
   const printDocument1 = () => {
     const input = document.getElementById("divToPrint1");
     console.log(data.skills);
@@ -57,6 +60,7 @@ function Preview() {
     });
   };
 
+  // Method to print template 2
   const printDocument2 = () => {
     const input = document.getElementById("divToPrint2");
     console.log(file);
@@ -70,6 +74,7 @@ function Preview() {
     });
   };
 
+  // Method to save details to database
   const saveDetailsTodb = () => {
     saveProfileDetails();
     saveAboutDetails();
@@ -104,6 +109,7 @@ function Preview() {
     });
   };
 
+  // Method to get userId by email
   const getUserId = () => {
     fetch("http://localhost:3001/userId", {
       method: "POST",
@@ -129,6 +135,7 @@ function Preview() {
     getUserId();
   }, [userEmail]);
 
+  // Method to save profile details
   const saveProfileDetails = () => {
     fetch("http://localhost:3001/profileDetails", {
       method: "POST",
@@ -154,6 +161,7 @@ function Preview() {
       });
   };
 
+  // Method to save save about details
   const saveAboutDetails = () => {
     fetch("http://localhost:3001/aboutDetails", {
       method: "POST",
@@ -174,6 +182,7 @@ function Preview() {
       });
   };
 
+  // Method to save save exp details
   const saveExpDetails = (
     job_title,
     company,
@@ -240,6 +249,7 @@ function Preview() {
     }
   };
 
+  // Method to save save education details
   const saveEducationDetails = (
     institute,
     degree,
@@ -272,6 +282,7 @@ function Preview() {
       });
   };
 
+  // Method to save save skills details
   const saveSkillsDetails = () => {
     fetch("http://localhost:3001/skillsDetails", {
       method: "POST",
@@ -292,6 +303,7 @@ function Preview() {
       });
   };
 
+  // Method to get icons
   const GetIcon = (icon) => {
     switch (icon.icon) {
       case "HiOutlineMail":
@@ -308,6 +320,8 @@ function Preview() {
         return "●";
     }
   };
+
+  // Method to get links
   const GetLinks = () => {
     const list = [];
     if (profile.email) {

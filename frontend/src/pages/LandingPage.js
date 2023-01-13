@@ -14,9 +14,10 @@ import ToastContainer from "react-bootstrap/ToastContainer";
 import Container from "react-bootstrap/Container";
 import Navbar from "react-bootstrap/Navbar";
 import Alert from "react-bootstrap/Alert";
+
+// LandingPage component
 function LandingPage() {
   const [signInopen, setsignInopen] = useState(false);
-
   const signInhandleOpen = () => setsignInopen(true);
   const signInhandleClose = () => setsignInopen(false);
 
@@ -37,6 +38,7 @@ function LandingPage() {
 
   var emailError, passwordError;
 
+  // Method to validate email
   function validateEmail(value) {
     if (!value) {
       emailError = "Required";
@@ -50,6 +52,7 @@ function LandingPage() {
     return emailError;
   }
 
+  // Method to validate password
   function validatePassword(value) {
     var regex =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
@@ -71,9 +74,14 @@ function LandingPage() {
     setPassword("");
   }, []);
 
+  // Method for signin
   function signIn(e) {
-
-    if ((userEmail !== "" && userPassword !== "") && (userEmail !== null && userPassword !== null)) {
+    if (
+      userEmail !== "" &&
+      userPassword !== "" &&
+      userEmail !== null &&
+      userPassword !== null
+    ) {
       console.log("userEmail", userEmail);
       fetch("http://localhost:3001/login", {
         method: "POST",
@@ -118,8 +126,15 @@ function LandingPage() {
     }
     e.preventDefault();
   }
+
+  // Method for signup
   function signup(e) {
-    if ((userEmail !== "" && userPassword !== "") && (userEmail !== null && userPassword !== null)) {
+    if (
+      userEmail !== "" &&
+      userPassword !== "" &&
+      userEmail !== null &&
+      userPassword !== null
+    ) {
       fetch("http://localhost:3001/signup", {
         method: "POST",
         body: JSON.stringify({

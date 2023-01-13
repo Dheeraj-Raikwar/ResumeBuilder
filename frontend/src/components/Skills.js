@@ -9,13 +9,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../state/index';
 
+// Profile Component
 function Skills() {
 
   const skills = useSelector(state => state.skills)
   const dispatch = useDispatch();
-  const {addSkill, removeSkill} = bindActionCreators(actionCreators, dispatch);
+  const {addSkill, removeSkill} = bindActionCreators(actionCreators, dispatch);  // to perform action on skills state
 
-  // const [skills, setSkills] = useState([]);
   const [show, setShow] = useState(false);
   const [Alert, setAlert] = useState(false);
   const [deleteId, setDeleteId] = useState(null);
@@ -42,7 +42,7 @@ function Skills() {
     else {
       setIsEdit(true);
       addSkill(input)
-      // setSkills([...skills, input]);
+  
       setInput("");
     }
   }
@@ -54,12 +54,9 @@ function Skills() {
   }
   const handleDelete = (id) => {
     removeSkill(id)
-    // skills.splice(id, 1);
-    // setSkills(skills);
+    
     setAlert(false);
-    // if (skills.length === 0) {
-    //   setIsEdit(false);
-    // }
+  
   }
   useEffect(()=>{
     if (skills.length === 0) {

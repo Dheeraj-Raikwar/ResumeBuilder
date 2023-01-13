@@ -11,13 +11,14 @@ import Toast from "react-bootstrap/Toast";
 import ToastContainer from "react-bootstrap/ToastContainer";
 import Table from "react-bootstrap/Table";
 
+// Profile Component
 function Profile() {
   const profile = useSelector((state) => state.profile);
   const dispatch = useDispatch();
   const { manageProfile, manageFile } = bindActionCreators(
     actionCreators,
     dispatch
-  );
+  ); // to perform action on profile state
 
 
   const [show, setShow] = useState(false);

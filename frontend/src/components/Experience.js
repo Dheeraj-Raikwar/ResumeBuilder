@@ -12,11 +12,12 @@ import { useSelector, useDispatch } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { actionCreators } from '../state/index';
 
+// Experience Component
 function Experience() {
 
   const experienceList = useSelector(state => state.experienceList)
   const dispatch = useDispatch();
-  const {addExperience, editExperience, removeExperience} = bindActionCreators(actionCreators, dispatch);
+  const {addExperience, editExperience, removeExperience} = bindActionCreators(actionCreators, dispatch);  // to perform action on Experience state
 
   const [show, setShow] = useState(false);
   const [Alert, setAlert] = useState(false);

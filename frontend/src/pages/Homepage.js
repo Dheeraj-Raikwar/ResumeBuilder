@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import { store } from '../state/store';
 import Footer from '../components/Footer';
 
+// HomePage component
 function HomePage() {
   return (
       <Provider store={store}>
