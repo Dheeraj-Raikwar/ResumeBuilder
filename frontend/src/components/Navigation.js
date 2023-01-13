@@ -16,7 +16,6 @@ function Navigation() {
   }
 
   function goback() {
-    localStorage.setItem("userEmail", null);
     navigate("/home");
   }
 

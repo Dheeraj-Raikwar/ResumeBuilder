@@ -1,14 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { MdAddCircleOutline, MdEdit, MdClose } from "react-icons/md";
-import {
-  HiLocationMarker,
-  HiOfficeBuilding,
-  HiOutlineMail,
-  HiPhone,
-} from "react-icons/hi";
-import { BsGithub, BsLinkedin, BsGlobe } from "react-icons/bs";
+import { MdEdit, MdClose } from "react-icons/md";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,14 +13,12 @@ import Table from "react-bootstrap/Table";
 
 function Profile() {
   const profile = useSelector((state) => state.profile);
-  const file = useSelector((state) => state.file);
   const dispatch = useDispatch();
   const { manageProfile, manageFile } = bindActionCreators(
     actionCreators,
     dispatch
   );
 
-  const [isEdit, setIsEdit] = useState(false);
 
   const [show, setShow] = useState(false);
   const [alert, setAlert] = useState(false);
@@ -43,8 +34,6 @@ function Profile() {
     website: false,
   });
 
-  const [profileName, setProfileName] = useState("");
-  const [profileURL, setProfileURL] = useState("");
 
   const [emailError, setEmailerror] = useState(false);
 
@@ -80,20 +69,28 @@ function Profile() {
   useEffect(() => {}, [alert]);
 
   const handleAlertHide = () => {
-    setProfileName("");
-    setProfileURL("");
     setAlert(false);
   };
-  const handleAlertShow = (Profile, Link) => {
-    setProfileName(Profile);
-    setProfileURL(Link);
+  const handleAlertShow = () => {
+    
     setAlert(true);
   };
 
   const saveChanges = () => {
     console.log(alertType);
 
-    if (!emailError && Object.values(alertType).every((v) => v === false)) {
+    var isAllFalse = true;
+
+    for (const key in alertType) {
+
+      if(alertType[key]===true){
+      isAllFalse = false
+      break
+      }
+
+    }
+
+    if (!emailError && isAllFalse) {
       handleClose();
     }
   };
@@ -107,16 +104,13 @@ function Profile() {
           className="d-flex justify-content-between align-items-center bg-secondary bg-gradient rounded"
         >
           <h6 className="m-0">Profile</h6>
-          {!isEdit && (
+          {
             <MdEdit size={30} className="rounded edit" onClick={handleShow} />
-          )}
-          {isEdit && (
-            <MdEdit size={30} className="rounded edit" onClick={handleShow} />
-          )}
+          }
+          
         </Col>
 
         <Col md={8} sm={12}>
-
           <Table responsive="sm">
             <thead>
               <tr>
@@ -160,14 +154,18 @@ function Profile() {
 
         <Modal show={show} onHide={handleClose} centered backdrop="static">
           <Modal.Header>
-            <Modal.Title><h6>Profile Details</h6></Modal.Title>
+            <Modal.Title>
+              <h6>Profile Details</h6>
+            </Modal.Title>
             <MdClose size={30} className="rounded edit" onClick={handleClose} />
           </Modal.Header>
 
           <Modal.Body>
             <Form>
               <Form.Group className="mb-3">
-                <Form.Label><h6>Full Name</h6></Form.Label>
+                <Form.Label>
+                  <h6>Full Name</h6>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="name"
@@ -178,7 +176,9 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label><h6>Location</h6></Form.Label>
+                <Form.Label>
+                  <h6>Location</h6>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="location"
@@ -189,7 +189,9 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label><h6>Position</h6></Form.Label>
+                <Form.Label>
+                  <h6>Position</h6>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="position"
@@ -200,7 +202,9 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label><h6>Description</h6></Form.Label>
+                <Form.Label>
+                  <h6>Description</h6>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="tagline"
@@ -211,7 +215,9 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label><h6>Email</h6></Form.Label>
+                <Form.Label>
+                  <h6>Email</h6>
+                </Form.Label>
                 <Form.Control
                   type="email"
                   name="email"
@@ -227,7 +233,9 @@ function Profile() {
                 ) : null}
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label><h6>Mobile No.</h6></Form.Label>
+                <Form.Label>
+                  <h6>Mobile No.</h6>
+                </Form.Label>
                 <Form.Control
                   type="number"
                   name="contact"
@@ -238,7 +246,9 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label><h6>Github Link</h6></Form.Label>
+                <Form.Label>
+                  <h6>Github Link</h6>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="github"
@@ -249,7 +259,9 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label><h6>Linkedin Link</h6></Form.Label>
+                <Form.Label>
+                  <h6>Linkedin Link</h6>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="linkedin"
@@ -260,7 +272,9 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group className="mb-3">
-                <Form.Label><h6>Website URL</h6></Form.Label>
+                <Form.Label>
+                  <h6>Website URL</h6>
+                </Form.Label>
                 <Form.Control
                   type="text"
                   name="website"
@@ -271,7 +285,9 @@ function Profile() {
                 />
               </Form.Group>
               <Form.Group controlId="formFileSm" className="mb-3">
-                <Form.Label><h6>Profile Picture</h6></Form.Label>
+                <Form.Label>
+                  <h6>Profile Picture</h6>
+                </Form.Label>
                 <Form.Control type="file" size="sm" onChange={handleFile} />
               </Form.Group>
             </Form>
@@ -283,13 +299,13 @@ function Profile() {
               className="rounded edit px-2"
               onClick={saveChanges}
             >
-             <h6> Save Changes</h6>
+              <h6> Save Changes</h6>
             </button>
           </Modal.Footer>
         </Modal>
       </Row>
 
-      <ToastContainer className="p-3" position="top-end">
+      <ToastContainer className="p-3" position="bottom-end">
         {Object.keys(alertType).map((key) => {
           return (
             <>

@@ -84,7 +84,7 @@ app.post("/login", (req, res) => {
     pool.query(selectQuery, (err, result) => {
       if (!err) {
         if (result.rows[0].count == 1) {
-          let passQuery = `Select password from users where email = '${email}'`;
+          let passQuery = `select password from users where email = '${email}'`;
 
           pool.query(passQuery, (err, result) => {
             let passdb = result.rows[0].password;
@@ -121,13 +121,13 @@ app.post("/login", (req, res) => {
 app.post("/userId", (req, res) => {
   const email = req.body.email;
 
-  let searchQuery = `Select count(email) from users where email = '${email}'`;
+  let searchQuery = `select count(email) from users where email = '${email}'`;
 
   try {
     pool.query(searchQuery, (err, result) => {
       if (!err) {
         if (result.rows[0].count == 1) {
-          let passQuery = `Select user_id from users where email = '${email}'`;
+          let passQuery = `select user_id from users where email = '${email}'`;
 
           pool.query(passQuery, (err, result1) => {
             console.log(result1);

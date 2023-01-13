@@ -423,7 +423,7 @@ function Preview() {
 
                           <hr></hr>
 
-                          <h3 class="mb-3 ls-2">• LINKS</h3>
+                          <h3 class="mb-3 ls-2">• SOCIAL</h3>
 
                           <h4 class="m-0 text-secondary">LinkedIn</h4>
                           <p class="m-0 mb-2">{profile.linkedin}</p>
