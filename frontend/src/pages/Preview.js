@@ -29,6 +29,8 @@ function Preview() {
   const educationList = useSelector((state) => state.educationList);
   const skills = useSelector((state) => state.skills);
   const [userEmail, setUserEmail] = useState();
+  const [templateType, setTemplateType] = useState();
+  
 
   const [userId, setUserId] = useState();
 
@@ -132,6 +134,7 @@ function Preview() {
 
   useEffect(() => {
     setUserEmail(localStorage.getItem('userEmail'))
+    setTemplateType(localStorage.getItem("templateType"));
     getUserId();
   }, [userEmail]);
 
@@ -380,9 +383,12 @@ function Preview() {
 
       { userEmail !='null' && typeof userEmail ==='string'  ?  <>
       <div className="template-container">
-        {/*Template 1 */} 
+
+        { templateType == "1" ? 
+        <>
+        {/*Template 1 */}
         <div className="template">
-        <h4>Template 1</h4>
+          <h4>Template 1</h4>
           <div className="row pdf bg-light" id="divToPrint1" size="A4">
             <div className="header-container">
               <div>
@@ -545,10 +551,12 @@ function Preview() {
             </button>
           </div>
         </div>
-
+        </>
+        :
+        <>
         {/* Template 2 */}
         <div className="template">
-        <h4>Template 2</h4>
+          <h4>Template 2</h4>
           <div row pdf bg-light id="border">
             <div className="row pdf bg-light" id="divToPrint2" size="A4">
               <div className="d-flex align-items-center justify-content-center col-md-5 bg-1 p-0 py-2">
@@ -669,7 +677,10 @@ function Preview() {
             </button>
           </div>
         </div>
+        </>
+        }
       </div>
+
       </>
       :<p>Page not Found</p>}
     </Fragment>

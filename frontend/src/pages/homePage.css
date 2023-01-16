@@ -151,11 +151,24 @@ body {
   color: #512013;
   height: 40px;
 }
+.Card-outer-container{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+}
 
-
-.Card-container{
+.Card-containe1{
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
+  height: 400px;
+}
+.Card-container2{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  height: 700px;
 }

@@ -9,9 +9,12 @@ import { NavLink } from "react-router-dom";
 
 // Editor Component which includes Profile, About, Experience, .. components
 function Editor() {
-  const [type, setType] = useState();
+  const [type, setType] = useState("gra");
+  const [ttype, settType] = useState("1");
   const [isGraduate, setisGraduate] = useState(false);
   const [isExperienced, setIsExperienced] = useState(false);
+  const [isTemplate1, setTemplate1] = useState(false);
+  const [isTemplate2, setTemplate2] = useState(false);
   const [userEmail, setUserEmail] = useState();
 
   useEffect(() => {
@@ -20,13 +23,22 @@ function Editor() {
       setisGraduate(true);
       setIsExperienced(false);
     }
-    if (type === "exp") {
+    else {
       setIsExperienced(true);
       setisGraduate(false);
     }
+    if (ttype === "1") {
+      setTemplate1(true);
+      setTemplate2(false);
+    }
+    else{
+      setTemplate2(true);
+      setTemplate1(false);
+    }
 
     localStorage.setItem("resumeType", type);
-  }, [type, userEmail]);
+    localStorage.setItem("templateType", ttype);
+  }, [type, ttype, userEmail]);
 
   return (
     <Fragment>
@@ -34,7 +46,18 @@ function Editor() {
         <>
           {/* Card Container */}
           <Container>
-            <div className="Card-container">
+            
+          <div>
+          <Row className="justify-content-center mt-2">
+              <Col
+                md={8}
+                sm={12}
+                className="d-flex justify-content-between align-items-center bg-light bg-gradient rounded"
+              >
+                <h6 className="m-0">Choose resume type</h6>
+              </Col>
+            </Row>
+            <div className="Card-container1">
               <Row xs={1} md={2} className="g-4">
                 <Col>
                   <Card style={{ width: "18rem", height: "19rem" }}>
@@ -78,6 +101,61 @@ function Editor() {
                   </Card>
                 </Col>
               </Row>
+            </div>
+            </div>
+            
+            <div>
+            <Row className="justify-content-center mt-2">
+              <Col
+                md={8}
+                sm={12}
+                className="d-flex justify-content-between align-items-center bg-light bg-gradient rounded"
+              >
+                <h6 className="m-0">Choose template</h6>
+              </Col>
+            </Row>
+            <div className="Card-container2">
+              <Row xs={1} md={2} className="g-4">
+                <Col>
+                  <Card style={{ width: "18rem", height: "19rem" }}>
+                    <Card.Img variant="top" src="https://iili.io/HaBExSV.png" />
+                    <Card.Body>
+                      <Card.Title>Template 1</Card.Title>
+                      <Button
+                        variant={isTemplate1 ? "success" : "primary"}
+                        disabled={isTemplate1}
+                        onClick={() => settType("1")}
+                      >
+                        {isTemplate1 ? (
+                          <span style={{ color: "#fff68f" }}>Selected</span>
+                        ) : (
+                          <span>Select</span>
+                        )}
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col>
+                  <Card style={{ width: "18rem", height: "19rem" }}>
+                    <Card.Img variant="top" src="https://iili.io/HaBE6ib.png" />
+                    <Card.Body>
+                      <Card.Title>Template 2</Card.Title>
+                      <Button
+                        variant={isTemplate2 ? "success" : "primary"}
+                        disabled={isTemplate2}
+                        onClick={() => settType("2")}
+                      >
+                        {isTemplate2 ? (
+                          <span style={{ color: "#fff68f" }}>Selected</span>
+                        ) : (
+                          <span>Select</span>
+                        )}
+                      </Button>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
+            </div>
             </div>
           </Container>
 

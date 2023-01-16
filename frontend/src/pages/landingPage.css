@@ -1,6 +1,3 @@
-#intro-example {
-  background-image: url("../../public/images/25334026_resume_01.jpg");
-}
 
 .header-container {
   display: flex;
@@ -8,6 +5,13 @@
   flex-direction: column;
   justify-content: center;
   background-color: #f5edef;
+}
+
+.container-row{
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
 }
 
 .btn-container {
@@ -43,15 +47,24 @@
   justify-content: center;
   width: 10px;
   padding-top: 100px;
-  margin-left: 50%;
-  margin-right: 50%;
+  margin-left: 400px;
 }
 
 .formContainer {
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
-  background-color: #f8f1f4;
   padding: 20px;
   border-radius: 10px;
+}
+
+.login-font-style{
+  font-size: 25px;
+  font-family: 'sans-serif';
+  font-weight:bold;
+}
+
+.font-style{
+  font-size: 20px;
+  font-family: 'sans-serif';
 }

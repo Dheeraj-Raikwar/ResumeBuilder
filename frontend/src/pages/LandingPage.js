@@ -166,33 +166,24 @@ function LandingPage() {
 
   return (
     <>
-      <header>
-        <Navbar className="bg-info">
-          <img
-            src="https://apps.odoocdn.com/web/image/loempia.module/144565/icon_image/"
-            width="50"
-            height="50"
-          />
-          <Navbar.Brand href="#home">Resume Builder</Navbar.Brand>
-          <Navbar.Toggle />
-        </Navbar>
-      </header>
+      <br></br>
 
       <div className="body-container">
         <div>
-          <div
-            id="intro-example"
-            className="p-5 text-center bg-image"
-            style={{
-              // backgroundImage:
-              //   "url('https://i.ibb.co/BNGSbhC/minimalist-background-uhd-8k-wallpaper.png')",
-              height: "720px",
-            }}
-          >
+          <div className="container-row">
+            <div className="inner-container">
+              <img
+                src="https://cdn.pixabay.com/photo/2019/03/22/21/42/cv-4074274_960_720.png"
+                width="600"
+                height="560"
+              />
+              <h4 className="text-center">Resume Builder</h4>
+            </div>
+
             <section id="sectionId">
               <div className="form-outer-container">
-                <div className="formContainer">
-                  <h5>Login</h5>
+                <div className="formContainer shadow-lg">
+                  <h5 className="login-font-style">Login</h5>
                   <Formik
                     initialValues={{
                       email: "",
@@ -210,16 +201,19 @@ function LandingPage() {
                             name="email"
                             validate={validateEmail}
                             placeholder="Enter email"
+                            className="font-style"
                           />
 
                           {errors.email && touched.email && (
                             <div>
-                              <span style={{ color: "#ff665b" }}>
+                              <span
+                                style={{ color: "#ff665b" }}
+                                className="font-style"
+                              >
                                 {errors.email}
                               </span>
                             </div>
                           )}
-                          <br />
                           <br />
                           {/* <RForm.Label>Password</RForm.Label> */}
                           <Field
@@ -227,11 +221,15 @@ function LandingPage() {
                             type="password"
                             validate={validatePassword}
                             placeholder="Enter Password"
+                            className="font-style"
                           />
 
                           {errors.password && touched.password && (
                             <div>
-                              <span style={{ color: "#ff665b" }}>
+                              <span
+                                style={{ color: "#ff665b" }}
+                                className="font-style"
+                              >
                                 {errors.password}
                               </span>
                             </div>
@@ -240,11 +238,11 @@ function LandingPage() {
                           <Button
                             variant="primary"
                             type="submit"
-                            className="signin m-3"
+                            className="signin m-3 font-style"
                           >
                             Login
                           </Button>
-                          <div className="d-flex flex-row">
+                          <div className="d-flex flex-row login-font-style">
                             <p>Not a user?</p>
                             <Alert.Link onClick={signUphandleOpen}>
                               Sign up
@@ -292,11 +290,15 @@ function LandingPage() {
                         name="email"
                         validate={validateEmail}
                         placeholder="Enter email"
+                        className="font-style"
                       />
 
                       {errors.email && touched.email && (
                         <div>
-                          <span style={{ color: "#ff665b" }}>
+                          <span
+                            style={{ color: "#ff665b" }}
+                            className="font-style"
+                          >
                             {errors.email}
                           </span>
                         </div>
@@ -307,17 +309,25 @@ function LandingPage() {
                         type="password"
                         validate={validatePassword}
                         placeholder="Enter Password"
+                        className="font-style"
                       />
 
                       {errors.password && touched.password && (
                         <div>
-                          <span style={{ color: "#ff665b" }}>
+                          <span
+                            style={{ color: "#ff665b" }}
+                            className="font-style"
+                          >
                             {errors.password}
                           </span>
                         </div>
                       )}
                       <Modal.Footer>
-                        <Button variant="primary" type="submit">
+                        <Button
+                          variant="primary"
+                          type="submit"
+                          className="font-style"
+                        >
                           Sign Up
                         </Button>
                       </Modal.Footer>
@@ -330,7 +340,7 @@ function LandingPage() {
         </Modal>
       ) : null}
 
-      <ToastContainer className="p-3" position="bottom-end">
+      <ToastContainer className="p-3" position="top-end">
         <Toast show={successHandle} onClose={successHandleClose}>
           <Toast.Header>
             <img
